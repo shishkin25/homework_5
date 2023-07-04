@@ -11,8 +11,15 @@
 </template>
 
 <script>
+import { Status } from '@/js/constants.js';
+
 export default { 
     name: 'status-item',
+    data() {
+        return {
+            Status
+        }
+    },
     props: {
         statusName: {
             type: String,
@@ -21,13 +28,13 @@ export default {
     },
     computed: {
         blueColor() {
-            return this.statusName == 'Завершена' || this.statusName == 'Выполнена' || this.statusName == 'Закрыта' || this.statusName == 'Активен'
+            return this.statusName == Status.COMPLETED || this.statusName == Status.DONE || this.statusName == Status.CLOSED || this.statusName == Status.ACTIVE
         },
         grayColor() {
-            return this.statusName == 'Не активен'
+            return this.statusName == Status.NOT_ACTIVE
         },
         orangeColor() {
-            return this.statusName == 'Удалена'
+            return this.statusName == Status.DELETED
         }
     }
 

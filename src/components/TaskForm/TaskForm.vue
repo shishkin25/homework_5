@@ -14,7 +14,7 @@
                 class="task-form__input" 
                 :placeholder="'Введите текст...'"
                 v-model="task.name"
-                @input-change="task.name = $event"
+                @input-change="saveTaskName"
             />
         </div>
         <div class="task-form__stripe-wrapper">
@@ -25,7 +25,7 @@
             <base-textarea
                 :placeholder="'Введите текст...'"
                 v-model="task.description"
-                @textarea-change="task.description = $event"
+                @textarea-change="saveTaskDescription"
             />
         </div>
         <div class="task-form__stripe-wrapper">
@@ -39,7 +39,7 @@
             <my-select
                 :items="[{id: 1, text: 'Иванов И.И.'}, {id: 2, text: 'Петров П.П.'}]"
                 :placeholder="'Не выбран'"
-                @select-change="task.owner = $event"
+                @select-change="saveTaskOwner"
             />
         </div>
         <div class="task-form__stripe-wrapper">
@@ -49,7 +49,7 @@
             <my-select
                 :items="[{id: 1, text: 'проект-1'}, {id: 2, text: 'проект-2'}]"
                 :placeholder="'Не назначен'"
-                @select-change="task.project = $event"
+                @select-change="saveTaskProject"
             />
         </div>
 
@@ -85,6 +85,18 @@ export default {
     methods: {
         showTaskInConsole() {
             console.log(this.task);
+        },
+        saveTaskName($event) {
+            this.task.name = $event;
+        },
+        saveTaskDescription($event) {
+            this.task.description = $event;
+        }, 
+        saveTaskOwner($event) {
+            this.task.owner = $event;
+        },
+        saveTaskProject($event) {
+            this.task.project = $event;
         }
     }
 }

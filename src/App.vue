@@ -1,19 +1,18 @@
 <template>
   <div id="app">
     
-
     <!-- Демонстрация динамического переключения компонентов -->
-    <template v-if="selectedNavItem == 'Проекты'">
+    <template v-if="selectedNavItem == PageNames.PROJECTS">
       <component 
-        :is="currentComponent"
+        :is="PageComponentsNames.PROJECTS"
         :projects="projects"
         @select-item="selectPageComponent"
       ></component>
     </template>
 
-    <template v-else-if="selectedNavItem == 'Задачи'">
+    <template v-else-if="selectedNavItem == PageNames.TASKS">
       <component 
-        :is="currentComponent"
+        :is="PageComponentsNames.TASKS"
         :tasks="tasks"
         @select-item="selectPageComponent"
       ></component>
@@ -21,7 +20,7 @@
 
     <template v-else>
       <component 
-        :is="currentComponent"
+        :is="PageComponentsNames.USERS"
         @select-item="selectPageComponent"
       ></component>
     </template>
@@ -70,11 +69,13 @@
 </template>
 
 <script>
+import { PageComponentsNames, PageNames } from '@/js/constants.js';
+
 import ProjectsPage from '@/views/ProjectsPage.vue'
 import TasksPage from '@/views/TasksPage.vue'
 import ProfilesPage from '@/views/UserProfilePage.vue'
 
-/* import CreatingTaskPage from '@/views/CreatingTaskPage.vue' */
+import CreatingTaskPage from '@/views/CreatingTaskPage.vue'
 export default {
   name: 'App',
   components: {
@@ -82,10 +83,12 @@ export default {
     TasksPage,
     ProfilesPage,
 
-    /* CreatingTaskPage */
+    CreatingTaskPage
   },
   data() {
     return {
+      PageComponentsNames,
+      PageNames,
       arrayOfItems: [
         {id: 1, text: 'text1'},
         {id: 2, text: 'text2'},
@@ -157,23 +160,6 @@ export default {
         }
       ], 
       selectedNavItem: 'Проекты',
-    }
-  },
-  computed: {
-    currentComponent: function() {
-      let componentName = '';
-      switch (this.selectedNavItem) {
-        case 'Проекты':
-          componentName='projects-page'
-          break
-        case 'Задачи':
-          componentName='tasks-page'
-          break
-        case 'Пользователи':
-          componentName='profiles-page'
-          break
-      }
-      return componentName;
     }
   },
   methods: {
